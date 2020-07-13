@@ -68,7 +68,7 @@ public class EmployeeController {
         return getResponseForSuccess(list);
     }
 
-    @GetMapping({"/allActiveEmployees"})
+    @GetMapping("/allActiveEmployees")
     public ResponseEntity<?> getAllActiveEmployees() {
         List<ActiveEmployeeDto> list = employeeService.getGetAllActiveEmployees();
         return responseForSuccess(list);

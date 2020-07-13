@@ -3,6 +3,7 @@ package com.project.business.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Table(name = "team")
@@ -10,6 +11,7 @@ import java.util.List;
 public class Team {
 
     @Column(name = "name")
+    @Size(max = 50)
     private String name;
 
     @Column(name = "employee")
