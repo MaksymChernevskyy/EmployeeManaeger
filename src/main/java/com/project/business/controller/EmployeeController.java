@@ -91,15 +91,15 @@ public class EmployeeController {
     @GetMapping("/xls")
     public ResponseEntity<?> getXls() throws IOException {
         employeeXlsService.createXLS();
-        return getResponseForSuccess();
+        return getResponseForSuccess("Excel is created");
     }
 
     private ResponseEntity<?> getResponseForSuccess(byte[] employeeListAsPdf, HttpHeaders responseHeaders) {
         return new ResponseEntity<>(employeeListAsPdf, responseHeaders, HttpStatus.OK);
     }
 
-    private ResponseEntity<?> getResponseForSuccess() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    private ResponseEntity<?> getResponseForSuccess(String message) {
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     private ResponseEntity<?> getResponseForSuccess(List<EmployeeDto> list) {
