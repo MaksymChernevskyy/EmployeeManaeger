@@ -7,7 +7,9 @@ import com.project.business.entity.entityDto.EmployeeDto;
 import com.project.business.service.EmployeePdfService;
 import com.project.business.service.EmployeeService;
 import com.project.business.service.EmployeeXlsService;
+import com.project.business.service.GetEnversService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.history.Revisions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,12 +28,14 @@ public class EmployeeController {
     private EmployeeService employeeService;
     private EmployeePdfService employeePdfService;
     private EmployeeXlsService employeeXlsService;
+    private GetEnversService getEnversService;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, EmployeePdfService employeePdfService, EmployeeXlsService employeeXlsService) {
+    public EmployeeController(EmployeeService employeeService, EmployeePdfService employeePdfService, EmployeeXlsService employeeXlsService, GetEnversService getEnversService) {
         this.employeeService = employeeService;
         this.employeePdfService = employeePdfService;
         this.employeeXlsService = employeeXlsService;
+        this.getEnversService = getEnversService;
     }
 
     @PostMapping
@@ -86,6 +90,11 @@ public class EmployeeController {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_PDF);
         return getResponseForSuccess(employeeListAsPdf, responseHeaders);
+    }
+
+    @GetMapping({"/{id}/audit"})
+    Revisions<Integer, Employee> getRevisionsById(@PathVariable Long id) {
+        return getEnversService.getRevisionsById(id);
     }
 
     @GetMapping("/xls")
